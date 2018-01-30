@@ -17,7 +17,7 @@ namespace ExampleConsole
             //Remember Environment Variables take precedence to .env file!
 
             //IF git is detected we get the latest tag available and insert it into version
-            Console.WriteLine("Version: " + env.Get("VERSION"));
+            Console.WriteLine("Version: " + env["VERSION"]);
 
         }
     }

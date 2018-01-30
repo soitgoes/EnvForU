@@ -88,6 +88,11 @@ namespace EnvForU
             }
             return true; //TODO: Validate with Regex. Throw exception if it's an invalid format
         }
+        public string this[string key]
+        {
+            get { return Dictionary[key]; }
+            set { Dictionary[key] = value; }
+        }
 
         public string Get(string key)
         {
