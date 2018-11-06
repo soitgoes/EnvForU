@@ -81,6 +81,7 @@ namespace EnvForU
             foreach (var line in lines)
             {
                 if (string.IsNullOrWhiteSpace(line)) continue;
+                if (line.StartsWith("#")) continue;
                 if (!line.Contains("=")) return false;
                 var parts = line.Split('=');
                 var key = parts[0].Trim();
