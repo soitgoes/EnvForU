@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Primitives;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace EnvForU
 {
-    public class Settings
+    public class Settings : IConfiguration
     {
         private Dictionary<string, string> Dictionary { get; set; } = new Dictionary<string, string>();
         /// <summary>
@@ -66,8 +68,14 @@ namespace EnvForU
         }
         public string this[string key]
         {
-            get { return Dictionary[key]; }
-            set { Dictionary[key] = value; }
+            get {
+                key = key?.ToUpper();
+                if (!Dictionary.ContainsKey(key)) return null;
+                return Dictionary[key.ToUpper()]; 
+            }
+            set { 
+                Dictionary[key.ToUpper().Trim()] = value.Trim(); 
+            }
         }
         public IEnumerable<string> Keys
         {
@@ -86,11 +94,26 @@ namespace EnvForU
         }
         public string Get(string key)
         {
-            return Dictionary[key.ToUpper()];
+            return this[key];
         }
         public void Set(string key, string value)
         {
-            Dictionary[key.ToUpper().Trim()] = value.Trim();
+            this[key] = value;
+        }
+
+        public IConfigurationSection GetSection(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IConfigurationSection> GetChildren()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IChangeToken GetReloadToken()
+        {
+            throw new NotImplementedException();
         }
     }
 }
