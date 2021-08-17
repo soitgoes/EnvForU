@@ -11,14 +11,14 @@ namespace ExampleConsole
     {
         static void Main(string[] args)
         {
-            var env = new Settings();
+            var env = new Settings("../../.env");
             //inject into IoC for use throughout the application
 
-            //Remember Environment Variables take precedence to .env file!
+            //Remember Environment Variables take precedence to .env file unless the first line of the file is !!
 
-            //IF git is detected we get the latest tag available and insert it into version
-            Console.WriteLine("Version: " + env["VERSION"]);
-
+            foreach (var key in env.Keys)
+                Console.WriteLine($"{key}={env[key]}");
+            Console.ReadLine();
         }
     }
 }
