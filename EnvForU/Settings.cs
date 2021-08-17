@@ -3,6 +3,7 @@ using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace EnvForU
 {
@@ -36,7 +37,8 @@ namespace EnvForU
                     if (line.Contains("="))
                     {
                         var parts = line.Split('=');
-                        Dictionary.Add(parts[0].ToUpper(), parts[1]);
+                        var value = string.Join("=", parts.Skip(1));
+                        Dictionary.Add(parts[0].ToUpper(), value);
                     }
                 }
             }
